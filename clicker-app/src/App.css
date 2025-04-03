@@ -1,0 +1,39 @@
+body {
+  background-color: aquamarine;
+}
+#main-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#clickerButton {
+  width: 200px;
+  padding: 20px;
+  font-size: 2em;
+  background: linear-gradient(135deg, #ff6f61, #6a11cb, #2575fc, #ff9a8b);
+  background-size: 400% 400%;
+  animation: gradientAnimation 10s ease infinite;
+}
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+.text {
+  font-size: 3em;
+  color: white;
+  font-weight: bold;
+}
+
+#endGif {
+  display: none;
+}
