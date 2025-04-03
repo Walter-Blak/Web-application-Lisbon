@@ -9,7 +9,7 @@ const LoginApp = () =>{
     const imgGoodChoice = useRef();
     const login = async() =>{
         const userName = userNameRef.current.value;
-        const addUser = await fetch(`http://localhost:3001/addUser?userName=${userName}`);
+        const addUser = await fetch(`http://192.168.68.73:3001/addUser?userName=${userName}`);
         const response = await addUser.text();
         if (response == "1"){
             formPage.current.style.display = "none";
