@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Spice&family=Bungee+Tint&display=swap');
+
+body {
+    background-color: azure;
+    font-family: "Bungee Tint", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+#main-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+/* Css for Login page with Games */
+#GamesPage {
+    display: none;
+}
+#Games {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.divGames {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(180, 197, 24);
+    font-size: 2em;
+    font-weight: bold;
+    transition: all 0.1s ease;
+}
+.imgGames {
+    transition: all 0.1s linear;
+}
+.divGames:hover {
+    transform: scale(1.1);
+    font-size: 2.2em;
+}
+
+.gameName {
+    position: absolute;
+    padding: 0;
+    background-color: aliceblue;
+    border-radius: 10px;
+    font-family: "Bungee Spice", sans-serif;
+    font-weight: 400;
+    font-size: 0.9em;
+    font-style: normal;
+}
+#imgGoodChoice {
+    display: none;
+}
+
+/* Css for Login page with form */
+#loginForm {
+    display: flex;
+    justify-content: center;   
+    flex-direction: column;
+}
+#EnterName {
+    animation: bigger 10s ease-in infinite;
+}
+@keyframes bigger {
+    0% {
+        font-size: 4em;
+    }
+    50% {
+        font-size: 5em;
+    }
+    100%{
+        font-size: 4em;
+    }
+}
+#userName {
+    font-size: 2em;
+    font-family: "Bungee Tint", sans-serif;
+    font-weight: 400;
+    color: green;
+}
+#buttonLogin {
+    transition: all 0.1s ease-in;
+    border: none;
+    font-size: 2em;
+    padding: 10px;
+    font-weight: bold;
+    color: white;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 12%, rgba(0,212,255,1) 86%);  
+}
+#buttonLogin:hover {
+    border-radius: 20px;
+    padding: 5px;
+}
+

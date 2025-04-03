@@ -1,9 +1,11 @@
-import LoginApp from './LoginApp';
+import ScoreApp from './ScoreApp';
 import './App.css';
 
 function App() {
   return (
-        <LoginApp />
+    <div>
+        <ScoreApp />
+    </div>
   );
 }
 

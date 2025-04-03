@@ -1,0 +1,146 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.board {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.status {
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #333;
+  text-align: center;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.cell {
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+  font-size: 3em;
+  font-weight: bold;
+  border: 3px solid #ccc;
+  background-color: #f9f9f9;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cell:hover {
+  background-color: #e0e0e0;
+}
+
+.cell:active {
+  transform: scale(0.95);
+}
+
+.cell:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+.cell.X {
+  color: #ff5733;
+}
+
+.cell.O {
+  color: #33aaff;
+}
+
+.reset-button {
+  height: 40px;
+  width: 160px;
+  margin-top: 30px;
+  margin-left: 3%;
+  background-color: #4caf50;
+  color: white;
+  font-size: 1.5em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.reset-button:hover {
+  background-color: #347336;
+}
+
+.reset-button:active {
+  transform: scale(0.95);
+}
+
+.scoreboard {
+  font-size: 1.5em;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  max-width: 350px;
+  color: #333;
+  font-weight: bold;
+}
+
+.scoreboard div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.scoreboard strong {
+  color: #333;
+}
+
+.scoreboard div:first-child {
+  color: #ff5733;
+}
+
+.scoreboard div:last-child {
+  color: #33aaff;
+}
+
+@media (max-width: 768px) {
+  .board {
+    width: 350px;
+    padding: 30px;
+  }
+
+  .cell {
+    width: 90px;
+    height: 90px;
+    font-size: 2.5em;
+  }
+
+  .reset-button {
+    width: 180px;
+    font-size: 1.2em;
+  }
+
+  .scoreboard {
+    font-size: 1.2em;
+    max-width: 300px;
+  }
+
+  .status {
+    font-size: 1.8em;
+  }
+}
