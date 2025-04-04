@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LoginForm = ({login, openMemoryGame, userNameRef, GamesPage, FormPage}) => {
+const LoginForm = ({login, openMemoryGame, userNameRef, GamesPage, FormPage, openClicker}) => {
     return (
         <div>
             <form action="#" method="post" id="loginForm" ref={FormPage}>
@@ -14,9 +14,9 @@ const LoginForm = ({login, openMemoryGame, userNameRef, GamesPage, FormPage}) =>
                         <img src='memoryGame.ico' class="imgGames"></img>
                         <span class="gameName">Memory Game</span>
                     </div>
-                    <div class="divGames">
-                        <img src="tic-tac-toe.png" class="imgGames"></img>
-                        <span class="gameName">Tic Tac Toe</span>
+                    <div class="divGames" onClick={() => openClicker()}>
+                        <img src="gaming.png" class="imgGames"></img>
+                        <span class="gameName">Clicker</span>
                     </div>
                     <div class="divGames">
                         <img src="black-jack.png" class="imgGames"></img>

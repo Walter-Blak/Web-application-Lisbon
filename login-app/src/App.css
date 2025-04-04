@@ -76,8 +76,7 @@ body {
 }
 #userName {
     font-size: 2em;
-    font-family: "Bungee Tint", sans-serif;
-    font-weight: 400;
+    font-family: 'Courier New', Courier, monospace;
     color: green;
 }
 #buttonLogin {

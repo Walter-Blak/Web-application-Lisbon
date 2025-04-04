@@ -4,6 +4,7 @@ const app = express();
 const port = 3001;
 const cors = require('cors');
 const {add_user, get_users_name} = require("./user_db");
+const {add_user_score} = require("./user_score_db");
 
 app.use(cors());
 
@@ -30,6 +31,16 @@ app.get("/getUsers", async (req, res) => {
 
 app.get("/", (req,res) => {
     res.send("Work");
+})
+
+app.get("/addScore", async (req, res) => {
+    const query = req.query.score.split(',');
+    const result = await add_user_score(query[0], query[1], query[2]);
+    if (result){
+        res.send(result);
+    }
+    
+    // res.send(`${query[0]} ${query[1]} ${query[2]}`)
 })
 
 app.listen(port, () =>{
