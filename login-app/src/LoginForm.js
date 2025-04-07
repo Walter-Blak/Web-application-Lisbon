@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LoginForm = ({login, openMemoryGame, userNameRef, GamesPage, FormPage, openClicker}) => {
+const LoginForm = ({login, openGame, userNameRef, GamesPage, FormPage}) => {
     return (
         <div>
             <form action="#" method="post" id="loginForm" ref={FormPage}>
@@ -10,11 +10,11 @@ const LoginForm = ({login, openMemoryGame, userNameRef, GamesPage, FormPage, ope
             </form>
             <section id="GamesPage" ref={GamesPage}>
                 <div id="Games">
-                    <div class="divGames" onClick={() => openMemoryGame()}>
+                    <div class="divGames" onClick={() => openGame(3002)}>
                         <img src='memoryGame.ico' class="imgGames"></img>
                         <span class="gameName">Memory Game</span>
                     </div>
-                    <div class="divGames" onClick={() => openClicker()}>
+                    <div class="divGames" onClick={() => openGame(3003)}>
                         <img src="gaming.png" class="imgGames"></img>
                         <span class="gameName">Clicker</span>
                     </div>

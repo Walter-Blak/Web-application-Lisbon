@@ -40,7 +40,7 @@
   margin-top: 40px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 10px;
+  grid-gap: 35px;
   justify-content: center;
   align-items: center;
   place-items: center;
@@ -107,4 +107,30 @@
   100% {
     text-shadow: 0 0 5px #ff0000, 0 0 10px #ff0000, 0 0 15px #ff0000, 0 0 20px #ff0000, 0 0 25px #ff0000;
   }
+}
+
+/* Table with result from database */
+
+#scoreTable {
+  position: fixed;
+  display: flex;
+  margin: 5px;
+  align-items: center;
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.4);
+  text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.8);
+  border: 2px solid rgba(255, 255, 255, 0.596);
+  
+}
+#scoreTable tr td {
+  border: 1px solid rgb(184, 166, 88);
+  padding: 10px 10px;
+}
+#scoreTable thead {
+  font-size: 2em;
+  color: #fdf5eb;
 }

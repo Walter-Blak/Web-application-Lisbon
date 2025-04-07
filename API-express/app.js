@@ -4,7 +4,7 @@ const app = express();
 const port = 3001;
 const cors = require('cors');
 const {add_user, get_users_name} = require("./user_db");
-const {add_user_score} = require("./user_score_db");
+const {add_user_score_bigger, add_user_score_smaller, getUserScores_fromBigger, getUserScores_fromSmaller} = require("./user_score_db");
 
 app.use(cors());
 
@@ -35,12 +35,33 @@ app.get("/", (req,res) => {
 
 app.get("/addScore", async (req, res) => {
     const query = req.query.score.split(',');
-    const result = await add_user_score(query[0], query[1], query[2]);
+    let result;
+
+    // check if we need to write to database bigger score or smaller score, in memorygame we need write smaller score but in clicker bigger score.
+    if (query[3] == "bigger"){
+        result = await add_user_score_bigger(query[0], query[1], query[2]);
+        result += "bigger";
+    }else if (query[3] == "smaller"){
+        result = await add_user_score_smaller(query[0], query[1], query[2]);
+        result += "smaller";
+    }
     if (result){
         res.send(result);
     }
     
     // res.send(`${query[0]} ${query[1]} ${query[2]}`)
+})
+
+app.get("/getScore" , async (req,res) => {
+    const query = req.query.minigame.split(',');
+    let result;
+    if(query[1] == 'smaller'){
+        result = await getUserScores_fromSmaller(query[0]);
+    }
+    if(query[1] == 'bigger'){
+        result = await getUserScores_fromBigger(query[0]);
+    }
+    res.json(result);
 })
 
 app.listen(port, () =>{

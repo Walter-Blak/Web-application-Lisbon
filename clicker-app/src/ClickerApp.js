@@ -9,48 +9,63 @@ const ClickerApp = () => {
     const [responseDB, setResponse] = useState('');
     const [userName, setUserName] = useState('');
     const [gameEnded, setGameEnded] = useState(false);
+    const [scoreTabe, setScoreTable] = useState([]);
     const button = useRef();
     const timesClicked = useRef();
     const mainDiv = useRef();
     const timer = useRef();
     const image = useRef();
-    const autoClicker = useRef();
-    const ip = "http://192.168.68.73:";
+    const ip = "http://192.168.68.82:";
+    useEffect(() => {
+        const receiveMessage = (event) => {
+          if (event.data.userName && !userName) {
+            console.warn("Otrzymano nazwę użytkownika:", event.data.userName);
+            setUserName(event.data.userName);
+            window.removeEventListener("message", receiveMessage); 
+          }
+        };
+      
+        window.addEventListener("message", receiveMessage);
+        return () => window.removeEventListener("message", receiveMessage);
+      }, []);
+      
+      useEffect(() => {
+              if(gameEnded && userName){
+                  console.warn("useEffect where AddScore if starts");
+                  AddScore();
+              }
+      }, [gameEnded, userName]);
+          
+      
+      const AddScore = async () => {
+              try {
+                  console.warn(userName);
+                  const res = await fetch(`${ip}3001/addScore?score=${userName},MemoryGame,${numberClicks},bigger`);            
+                  const responseText = await res.text();
+                  console.warn(responseText);
+                  setScoreTable(responseText);
+              } catch (error) {
+                  console.error("Błąd zapisu wyniku:", error);
+                  setResponse("Błąd zapisu do bazy");
+              }
+      };
 
     useEffect(() => {
-        console.warn("useEffect with get userName");
         const receiveMessage = (event) => {
-            
-    
             if (event.data.userName) {
-                console.warn("Otrzymano nazwę użytkownika:", event.data.userName);
                 setUserName(event.data.userName);
             }
         };
-    
         window.addEventListener("message", receiveMessage);
         return () => window.removeEventListener("message", receiveMessage);
     }, []);
 
     useEffect(() => {
-        if(gameEnded && userName){
-            console.warn("useEffect where AddScore if starts");
+        if (gameEnded && userName) {
             AddScore(numberClicks);
         }
     }, [gameEnded, userName]);
-    
 
-    const AddScore = async (numberClicks) => {
-        try {
-            console.warn(userName);
-            const res = await fetch(`${ip}3001/addScore?score=${userName},Clicker,${numberClicks}`);
-            const responseText = await res.text();
-            setResponse(responseText);
-        } catch (error) {
-            console.error("Błąd zapisu wyniku:", error);
-            setResponse("Błąd zapisu do bazy");
-        }
-    };
 
     const Click = () => {
         setClick(prev => prev + 1);
@@ -58,7 +73,7 @@ const ClickerApp = () => {
         button.current.style.background = "none";
         const pixels = 48.0 + numberClicks;
         timesClicked.current.style.fontSize = `${pixels}px`;
-        if (numberClicks > 300){
+        if (numberClicks > 300) {
             mainDiv.current.innerHTML = `
                 <h1 id="autoClickerh1">Nie urzywaj k***a auto clickera</h1>
                 <img src="cheater.gif" />
@@ -77,7 +92,6 @@ const ClickerApp = () => {
             button.current.style.display = "none";
             timer.current.style.display = "none";
             image.current.style.display = "block";
-
             setGameEnded(true);
         }
 
@@ -95,16 +109,49 @@ const ClickerApp = () => {
 
         return () => clearInterval(timerId);
     }, [isTimerStarted, seconds, milliseconds]);
+    const getScores = async () => {
+        try {
+          const dbResponse = await fetch(`${ip}3001/getScore?minigame=Clicker,bigger`);
+          const jsonResponse = await dbResponse.json();
+          console.warn(jsonResponse);
+          setScoreTable(jsonResponse);
+        } catch (error) {
+          console.error("Błąd zapisu wyniku:", error);
+          setResponse("Błąd zapisu do bazy");
+        }
+      };
+    useEffect(() => {
+        getScores();
+    }, []);
 
     return (
-        <div id="main-div" ref={mainDiv}>
+        <div >
+            <section id="scoreTable">
+                <table>
+                    <thead>
+                        <tr>Users score</tr>
+                    </thead>
+                    <tbody>
+                        {scoreTabe.slice(0,5).map((entry, index) => (
+                        <tr key={index}>
+                            <td>{entry.userName}</td>
+                            <td>{entry.score}</td>
+                        </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </section>
+            <div id="main-div" ref={mainDiv}>
                 <ClickButton clicked={Click} button={button} />
-                <div className="text">Times clicked: <span ref={timesClicked}>{numberClicks}</span></div>
+                <div className="text">
+                    Times clicked: <span ref={timesClicked}>{numberClicks}</span>
+                </div>
                 <img src="clicker.gif" ref={image} id="endGif" />
                 <div className="text" ref={timer}>
                     Timer: {seconds} s {milliseconds} ms
                 </div>
                 {responseDB}
+            </div>
         </div>
     );
 };
