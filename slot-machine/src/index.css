@@ -1,0 +1,18 @@
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f06, #a6c0fe);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+body, html, #root {
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+}

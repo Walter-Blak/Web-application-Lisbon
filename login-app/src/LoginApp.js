@@ -2,23 +2,23 @@ import React, { useState, useRef} from 'react';
 import LoginForm from './LoginForm';
 
 const LoginApp = () =>{
-    const [addUserResponse, setResponseAddUser] = useState('');
+
     const userNameRef = useRef();
     const gamesPage = useRef();
     const formPage = useRef();
     const imgGoodChoice = useRef();
-    const ip = "http://192.168.68.82:";
+    const ip = "http://192.168.68.96:"; // here you need to enter corect ip address of this computer
     const login = async() =>{
         const userName = userNameRef.current.value;
-        if (userName.trim().length == 0){
+        if (userName.trim().length === 0){
             alert("WOW, you are really creative with your nickname 😂.");
         }else {
             const addUser = await fetch(`${ip}3001/addUser?userName=${userName}`);
             const response = await addUser.text();
-            if (response == "1"){
+            if (response === "1"){
                 formPage.current.style.display = "none";
                 gamesPage.current.style.display = "block";
-            }else if (response == "0"){
+            }else if (response === "0"){
                 const continiueAsThisUser = window.confirm(`This user name is already exists. Do you want continiue as ${userName}`);
                 if (continiueAsThisUser){
                     formPage.current.style.display = "none";
@@ -55,7 +55,7 @@ const LoginApp = () =>{
         <div id="main-div">
             <img src="../good_choice.gif" id="imgGoodChoice" ref={imgGoodChoice}></img>
             <LoginForm login={login} openGame={openGame} userNameRef={userNameRef} GamesPage={gamesPage} FormPage={formPage}/>
-            {addUserResponse}
+   
         </div>
     )
 };

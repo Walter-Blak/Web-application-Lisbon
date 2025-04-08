@@ -23,7 +23,7 @@ function App() {
   const [gameEnded, setGameEnded] = useState(false);
   const [responseDB, setResponse] = useState('');
   const [scoreTabe, setScoreTable] = useState([]);
-  const ip = "http://192.168.68.82:";
+  const ip = "http://192.168.68.96:"; // here you need to enter corect ip address of this computer
   useEffect(() => {
     const receiveMessage = (event) => {
       if (event.data.userName && !userName) {
@@ -104,12 +104,14 @@ function App() {
       const dbResponse = await fetch(`${ip}3001/getScore?minigame=MemoryGame,smaller`);
       const jsonResponse = await dbResponse.json();
       console.warn(jsonResponse);
-      setScoreTable(jsonResponse);
+
+      // Ensure the response is an array
+      setScoreTable(Array.isArray(jsonResponse) ? jsonResponse : []);
     } catch (error) {
       console.error("Błąd zapisu wyniku:", error);
       setResponse("Błąd zapisu do bazy");
     }
-  };
+};
   
 
   useEffect(() => {
@@ -130,25 +132,32 @@ function App() {
   }, []);
 
   useEffect(() => {
-    getScores();
-  }, []);
+         getScores(); 
+ 
+         const intervalId = setInterval(() => {
+             getScores(); // Refresh scores every 5 seconds
+         }, 5000);
+ 
+ 
+         return () => clearInterval(intervalId);
+     }, []);
   return (
     <div >
       <section id="scoreTable">
-        <table>
-          <thead>
-            <tr>Users score</tr>
-          </thead>
-          <tbody>
-            {scoreTabe.slice(0,5).map((entry, index) => (
-              <tr key={index}>
-                <td>{entry.userName}</td>
-                <td>{entry.score}</td>
-              </tr>
-            ))}
-        </tbody>
-        </table>
-      </section>
+                <table>
+                    <thead>
+                        <tr>Users score</tr>
+                    </thead>
+                    <tbody>
+                        {Array.isArray(scoreTabe) && scoreTabe.slice(0, 5).map((entry, index) => (
+                            <tr key={index}>
+                                <td>{entry.userName}</td>
+                                <td>{entry.score}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </section>
       <div className="App">
         <h1 id="h1mg">Memory Game!</h1>
         <button id="b1nw" onClick={shuffleCards}>New Game</button>

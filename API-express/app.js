@@ -4,9 +4,10 @@ const app = express();
 const port = 3001;
 const cors = require('cors');
 const {add_user, get_users_name} = require("./user_db");
-const {add_user_score_bigger, add_user_score_smaller, getUserScores_fromBigger, getUserScores_fromSmaller} = require("./user_score_db");
+const {add_user_score_bigger, add_user_score_smaller, getUserScores_fromBigger, getUserScores_fromSmaller, sum_user_score} = require("./user_score_db");
 
 app.use(cors());
+
 
 app.get('/addUser', async (req, res) => {
     try {
@@ -37,28 +38,40 @@ app.get("/addScore", async (req, res) => {
     const query = req.query.score.split(',');
     let result;
 
-    // check if we need to write to database bigger score or smaller score, in memorygame we need write smaller score but in clicker bigger score.
-    if (query[3] == "bigger"){
+
+    if (query[3] === "bigger") {
         result = await add_user_score_bigger(query[0], query[1], query[2]);
-        result += "bigger";
-    }else if (query[3] == "smaller"){
+    } else if (query[3] === "smaller") {
         result = await add_user_score_smaller(query[0], query[1], query[2]);
-        result += "smaller";
     }
-    if (result){
-        res.send(result);
+
+    if (result) {
+        console.log(result); 
+        res.send(result); 
+    } else {
+        res.status(500).send("Error while adding score");
     }
-    
-    // res.send(`${query[0]} ${query[1]} ${query[2]}`)
+});
+
+app.get("/addScoreSum", async(req,res) => {
+    const query = req.query.score.split(',');
+    result = await sum_user_score(query[0], query[1] ,query[2]);
+    if (result) {
+        console.log(result); 
+        res.send(result); 
+    } else {
+        res.status(500).send("Error while adding score");
+    }
 })
+
 
 app.get("/getScore" , async (req,res) => {
     const query = req.query.minigame.split(',');
     let result;
-    if(query[1] == 'smaller'){
+    if(query[1] === 'smaller'){
         result = await getUserScores_fromSmaller(query[0]);
     }
-    if(query[1] == 'bigger'){
+    if(query[1] === 'bigger'){
         result = await getUserScores_fromBigger(query[0]);
     }
     res.json(result);

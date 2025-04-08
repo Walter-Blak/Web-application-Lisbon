@@ -15,32 +15,35 @@ const ClickerApp = () => {
     const mainDiv = useRef();
     const timer = useRef();
     const image = useRef();
-    const ip = "http://192.168.68.82:";
+    const ip = "http://192.168.68.96:"; // here you need to enter corect ip address of this computer
+
+    // get user name from login page
     useEffect(() => {
         const receiveMessage = (event) => {
-          if (event.data.userName && !userName) {
-            console.warn("Otrzymano nazwę użytkownika:", event.data.userName);
-            setUserName(event.data.userName);
-            window.removeEventListener("message", receiveMessage); 
-          }
+            if (event.data.userName) {
+                setUserName(event.data.userName);
+                console.warn("User name is: ", userName);
+                window.removeEventListener("message", receiveMessage);
+            }
         };
-      
         window.addEventListener("message", receiveMessage);
         return () => window.removeEventListener("message", receiveMessage);
-      }, []);
+    }, [userName]);  
+    
       
-      useEffect(() => {
-              if(gameEnded && userName){
-                  console.warn("useEffect where AddScore if starts");
-                  AddScore();
-              }
-      }, [gameEnded, userName]);
+    useEffect(() => {
+        if (gameEnded && userName) {
+            AddScore();
+        }
+    }, [gameEnded, userName, numberClicks]);  
+    
           
       
-      const AddScore = async () => {
+    const AddScore = async () => {
               try {
                   console.warn(userName);
-                  const res = await fetch(`${ip}3001/addScore?score=${userName},MemoryGame,${numberClicks},bigger`);            
+                  let strNumberClick = numberClicks.toString();
+                  const res = await fetch(`${ip}3001/addScore?score=${userName},Clicker,${strNumberClick},bigger`);            
                   const responseText = await res.text();
                   console.warn(responseText);
                   setScoreTable(responseText);
@@ -50,21 +53,13 @@ const ClickerApp = () => {
               }
       };
 
-    useEffect(() => {
-        const receiveMessage = (event) => {
-            if (event.data.userName) {
-                setUserName(event.data.userName);
-            }
-        };
-        window.addEventListener("message", receiveMessage);
-        return () => window.removeEventListener("message", receiveMessage);
-    }, []);
+    
 
     useEffect(() => {
         if (gameEnded && userName) {
             AddScore(numberClicks);
         }
-    }, [gameEnded, userName]);
+    }, [gameEnded, userName, numberClicks]);
 
 
     const Click = () => {
@@ -108,20 +103,31 @@ const ClickerApp = () => {
         }, 10);
 
         return () => clearInterval(timerId);
-    }, [isTimerStarted, seconds, milliseconds]);
+    }, [isTimerStarted, seconds, milliseconds, numberClicks]);
+
     const getScores = async () => {
         try {
           const dbResponse = await fetch(`${ip}3001/getScore?minigame=Clicker,bigger`);
           const jsonResponse = await dbResponse.json();
           console.warn(jsonResponse);
-          setScoreTable(jsonResponse);
+    
+          // Ensure the response is an array
+          setScoreTable(Array.isArray(jsonResponse) ? jsonResponse : []);
         } catch (error) {
           console.error("Błąd zapisu wyniku:", error);
           setResponse("Błąd zapisu do bazy");
         }
-      };
+    };
+    
     useEffect(() => {
-        getScores();
+        getScores(); 
+
+        const intervalId = setInterval(() => {
+            getScores(); // Refresh scores every 5 seconds
+        }, 5000);
+
+
+        return () => clearInterval(intervalId);
     }, []);
 
     return (
@@ -132,15 +138,16 @@ const ClickerApp = () => {
                         <tr>Users score</tr>
                     </thead>
                     <tbody>
-                        {scoreTabe.slice(0,5).map((entry, index) => (
-                        <tr key={index}>
-                            <td>{entry.userName}</td>
-                            <td>{entry.score}</td>
-                        </tr>
+                        {Array.isArray(scoreTabe) && scoreTabe.slice(0, 5).map((entry, index) => (
+                            <tr key={index}>
+                                <td>{entry.userName}</td>
+                                <td>{entry.score}</td>
+                            </tr>
                         ))}
                     </tbody>
                 </table>
             </section>
+
             <div id="main-div" ref={mainDiv}>
                 <ClickButton clicked={Click} button={button} />
                 <div className="text">
