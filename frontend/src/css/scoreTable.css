@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+#scoreTable {
+    position: fixed;
+    display: flex;
+    z-index: 100;
+    margin: 5px;
+    align-items: center;
+    border: 1px solid black;
+    border-collapse: collapse;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.4);
+    font-family: "Roboto", sans-serif;
+    text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(255, 255, 255, 0.596);
+    
+  }
+  #scoreTable tr td {
+    border: 1px solid rgb(184, 166, 88);
+    padding: 10px 10px;
+  }
+  #scoreTable thead {
+    font-size: 2em;
+    color: #fdf5eb;
+  }

@@ -1,0 +1,27 @@
+
+
+#button_return_login {
+    position: fixed;
+    z-index: 100;
+    right: 1%;
+    top: 5%;
+    font-family: "Roboto", sans-serif;
+    font-size: 1.5em;
+    font-weight: bold;
+    font-style: italic;
+    color: rgb(255, 255, 255);    
+    padding: 1%;
+    border-radius: 8px;
+    border: none;
+    background: linear-gradient(45deg, #0011ff, #ff4800);
+    transition: all 0.1s ease-in;
+}
+
+#button_return_login:hover {
+    cursor: pointer;
+    background: linear-gradient(45deg, #ff4800, #0011ff);
+    transform: scale(1.05);
+}
+#button_return_login:active {
+    transform: scale(0.90);
+}

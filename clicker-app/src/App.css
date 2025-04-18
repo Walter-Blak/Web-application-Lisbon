@@ -1,0 +1,190 @@
+/* Główne tło z płynnym gradientem */
+body {
+  background: linear-gradient(-45deg, #00f5a0, #00d9f5, #845ec2, #f6a6ff);
+  background-size: 400% 400%;
+  animation: gradientFlow 15s ease infinite;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Animacja gradientu */
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+/* Animacja gradientowego tła */
+@keyframes backgroundMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+#main-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  position: relative;
+}
+
+/* Guzik z zaokrągleniami i efektem hover */
+#clickerButton {
+  width: 200px;
+  padding: 20px;
+  font-size: 2em;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #ff6f61, #6a11cb, #2575fc, #ff9a8b);
+  background-size: 400% 400%;
+  animation: gradientAnimation 10s ease infinite;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#clickerButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Animacja kolorów przycisku */
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Licznik kliknięć */
+.text {
+  font-size: 3em;
+  color: #fff;
+  font-weight: bold;
+  margin-top: 20px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Styl końcowego GIFa */
+#endGif {
+  display: none;
+  animation: fadeIn 1s ease-out, vibration 0.07s ease-in-out infinite;
+  max-width: 500px;
+  height: auto;
+  margin-top: 30px;
+}
+
+@keyframes vibration {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Styl h1 przy auto-clickerze */
+#autoClickerh1 {
+  font-size: 4em;
+  color: red;
+  text-align: center;
+  text-shadow: 2px 2px 5px black;
+}
+
+/* Kontener przy oszustwie */
+#autoClicker {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+@media (max-width: 768px) {
+  #main-div {
+    padding: 20px;
+    height: auto;
+  }
+
+  #clickerButton {
+    width: 160px;
+    padding: 15px;
+    font-size: 1.5em;
+    border-radius: 40px;
+  }
+
+  .text {
+    font-size: 2em;
+    margin-top: 15px;
+  }
+
+  #endGif {
+    max-width: 90%;
+    margin-top: 20px;
+  }
+
+  #autoClickerh1 {
+    font-size: 2.5em;
+    padding: 10px;
+  }
+
+  #autoClicker {
+    padding: 20px;
+    height: auto;
+  }
+
+  #timer {
+    font-size: 1.5em;
+  }
+}
+
+/* Table with result from database */
+
+#scoreTable {
+  position: fixed;
+  display: flex;
+  margin: 5px;
+  align-items: center;
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.4);
+  text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.8);
+  border: 2px solid rgba(255, 255, 255, 0.596);
+  
+}
+#scoreTable tr td {
+  border: 1px solid rgb(184, 166, 88);
+  padding: 10px 10px;
+}
+#scoreTable thead {
+  font-size: 2em;
+  color: #fdf5eb;
+}

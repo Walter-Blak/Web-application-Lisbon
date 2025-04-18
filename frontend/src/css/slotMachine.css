@@ -1,0 +1,238 @@
+.app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    justify-content: flex-start;
+    padding-top: 40px;
+    background: radial-gradient(ellipse at center, #1b2735 0%, #090a0f 100%);
+    font-family: 'Trebuchet MS', sans-serif;
+    overflow-x: hidden;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .app.shake {
+    animation: shakeApp 0.5s;
+  }
+  
+  @keyframes shakeApp {
+    0% { transform: translate(0px, 0px); }
+    25% { transform: translate(4px, 0px); }
+    50% { transform: translate(-4px, 0px); }
+    75% { transform: translate(4px, 0px); }
+    100% { transform: translate(0px, 0px); }
+  }
+  
+  .h1_slotMachine {
+    font-size: 64px;
+    font-weight: 900;
+    margin-bottom: 30px;
+    letter-spacing: 3px;
+    color: #ffe600;
+    text-shadow: 0 0 10px #ffea00, 0 0 20px #ffdd00, 0 0 30px #ffaa00;
+    animation: flicker 2.5s infinite alternate;
+  }
+  
+  @keyframes flicker {
+    0% { opacity: 1; }
+    50% { opacity: 0.9; text-shadow: 0 0 30px #ffcc00; }
+    100% { opacity: 1; }
+  }
+  
+  .slots {
+    display: flex;
+    gap: 12px;
+    padding: 20px;
+    background: linear-gradient(145deg, #ff9966, #ff5e62);
+    border-radius: 16px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    margin-bottom: 25px;
+  }
+  
+  .reel-window {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border: 4px solid #000;
+    border-radius: 12px;
+    background: #fff;
+  }
+  
+  .reel-window.highlight {
+    animation: pulse 1s infinite;
+  }
+  
+  @keyframes pulse {
+    0% { box-shadow: 0 0 5px gold; }
+    50% { box-shadow: 0 0 25px 10px gold; }
+    100% { box-shadow: 0 0 5px gold; }
+  }
+  
+  .reel {
+    width: 100px;
+    height: 900px;
+    background-image: url("/public/imgSlot/slots.png");
+    background-size: 100px auto;
+    background-repeat: repeat-y;
+    transition: background-position-y 0.6s cubic-bezier(.41, -0.01, .63, 1.09);
+  }
+  
+  .controls {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  button {
+    padding: 14px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(to right, #43e97b, #38f9d7);
+    color: #000;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  button:hover:not(:disabled) {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+  }
+  
+  button:active:not(:disabled) {
+    transform: scale(0.96);
+    box-shadow: inset 0 3px 6px rgba(0,0,0,0.4);
+  }
+  
+  button:disabled {
+    background: #444;
+    color: #888;
+    cursor: not-allowed;
+  }
+  
+  .status {
+    display: flex;
+    gap: 40px;
+    font-size: 22px;
+    color: #fff;
+    margin-bottom: 20px;
+    padding: 10px 25px;
+    background: rgba(0,0,0,0.5);
+    border-radius: 12px;
+    backdrop-filter: blur(2px);
+    box-shadow: 0 0 12px rgba(255,255,255,0.1);
+    text-shadow: 1px 1px 4px #000;
+  }
+  
+  #message {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    padding: 16px 32px;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 16px;
+    margin-top: 20px;
+    text-align: center;
+    animation: fadeIn 0.4s ease-in-out;
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes shake-symbol {
+    0% { transform: translateX(0px); }
+    20% { transform: translateX(-4px); }
+    40% { transform: translateX(4px); }
+    60% { transform: translateX(-3px); }
+    80% { transform: translateX(3px); }
+    100% { transform: translateX(0px); }
+  }
+  
+  .shake-symbol {
+    animation: shake-symbol 0.6s ease;
+  }
+  
+  .gif-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    pointer-events: none;
+  }
+  
+  .big-win-gif {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.85);
+    border: 4px solid white;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    pointer-events: none;
+  }
+  
+  @keyframes floatUpDown {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.3); opacity: 0.7; }
+  }
+  
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+  }
+  
+  .auto-spin-active {
+    background: linear-gradient(to right, #ff4e50, #f9d423) !important;
+    color: white;
+    border: 2px solid white;
+  }
+  
+  .status.extra {
+    margin-top: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  /* Table with result from database */
+  
+  #scoreTable {
+    position: fixed;
+    display: flex;
+    margin: 5px;
+    align-items: center;
+    border: 1px solid black;
+    border-collapse: collapse;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.4);
+    text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.8);
+    border: 2px solid rgba(255, 255, 255, 0.596);
+    
+  }
+  #scoreTable tr td {
+    border: 1px solid rgb(184, 166, 88);
+    padding: 10px 10px;
+  }
+  #scoreTable thead {
+    font-size: 1.4em;
+    color: #fdf5eb;
+  }
